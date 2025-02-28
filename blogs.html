@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGWINO - Blog</title>
+    <style>
+        :root {
+            --primary-color: #0c3165;
+            --secondary-color: #004BB3;
+            --accent-color: #4CAF50;
+            --light-bg: #f8f9fa;
+            --dark-bg: #333;
+            --text-light: #fff;
+            --text-dark: #333;
+            --text-muted: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #navLinks {
+            display: flex;
+            justify-content: space-between;
+            padding:0 20px;
+        }
+        #navLinks li {
+            display: inline-block;
+            list-style: none;
+            text-decoration: none;
+            color: white;
+        }
+        #navLinks li a {
+            color: white;
+            text-decoration: none;
+            justify-content: space-between;
+            padding: 30px;
+        }
+        .nav-links li {
+            margin-bottom: 20px;
+        }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header { 
+            background: var(--primary-color); 
+            color: var(--text-light); 
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 60px;
+        }
+        
+        .header-content {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: -20px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--text-light);
+            color: var(--primary-color);
+            padding: 12px 25px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+        }
+        
+        .btn-accent:hover {
+            background: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            background-image: url("./Ravi\ Rao\ Bhoundve.jpeg");
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .hero-content {
+            background-color: rgba(29, 115, 228, 0);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            backdrop-filter: blur(10px);
+        }
+        .subscribe-form input {
+            display: inline-block;
+            border: 10px solid black;
+        }
+        .hero h2 { 
+            font-size: 48px; 
+            margin-bottom: 20px; 
+            color: var(--text-light);
+        }
+        
+        .hero p { 
+            font-size: 20px; 
+            margin-bottom: 30px; 
+            line-height: 1.8;
+        }
+        
+        .section {
+            padding: 70px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 15px auto;
+        }
+
+        /* Blog specific styles */
+        .blog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 300px;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px 0 0 25px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .blog-card img {
+            width: 100%;
+            height: 250px;
+        }
+
+        .search-box button {
+            padding: 10px 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+        }
+
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color:white;
+        }
+
+        .blog-excerpt {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .featured-posts {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .featured-posts .section-title {
+            color: white;
+        }
+
+        .featured-posts .section-title::after {
+            background: white;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .featured-main {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            height: 500px;
+        }
+
+        .featured-secondary {
+            height: 235px;
+        }
+
+        .featured-post {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 50px 0 30px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover, .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .subscribe {
+
+            background: #f8f8f8 url("./Download\ Business\ graph\ chart\ of\ stock\ market\ investment\ on\ blue\ background\ for\ free.jpeg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .subscribe-form {
+            max-width: 500px;
+            margin: 30px auto 0;
+            display: flex;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            font-size: 16px;
+        }
+
+        .subscribe-form button {
+            padding: 15px 25px;
+            background: var(--dark-bg);
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+        }
+
+        footer { 
+            background: var(--dark-bg); 
+            color: var(--text-light); 
+            padding: 50px 0 20px; 
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            margin-top: 10px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                justify-content: center;
+            }
+            .nav-links {
+                flex-direction: row;
+                padding: 30px;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 60px 0;
+            }
+            
+            .hero h2 { 
+                font-size: 36px; 
+            }
+            
+            .hero p { 
+                font-size: 18px; 
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+            
+            .blog-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .search-box {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-main {
+                grid-column: auto;
+                grid-row: auto;
+                height: 300px;
+            }
+
+            .featured-secondary {
+                height: 300px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-content {
+                padding: 20px;
+            }
+            
+            .hero h2 { 
+                font-size: 28px; 
+            }
+            
+            .hero p { 
+                font-size: 16px; 
+            }
+            
+            .btn-primary, .btn-secondary, .btn-accent {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">NGWINO</h1>
+            <div class="nav-buttons">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="./home.html" class="nav-link">Home</a></li>
+                    <li><a href="./about.html" class="nav-link">About Us</a></li>
+                    <li><a href="./blogs.html" class="nav-link">Blogs</a></li>
+                    <li><a href="./contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="#" class="nav-link buttons">Sign Up</a></li>
+                    <li><a href="#" class="nav-link buttons">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>NGWINO Blog</h2>
+            <p>Stay informed with the latest insights about banking, loans, financial management, and more</p>
+            <button class="btn-accent">Subscribe to Updates</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="blog-header">
+                <h3 class="section-title">Latest Articles</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="Search our blog...">
+                    <button>🔍</button>
+                </div>
+            </div>
+
+            <div class="blog-categories">
+                <button class="category-btn active">All</button>
+                <button class="category-btn">Banking Tips</button>
+                <button class="category-btn">Loan Management</button>
+                <button class="category-btn">Financial Education</button>
+                <button class="category-btn">Company News</button>
+            </div>
+
+            <div class="blog-container">
+                <div class="blog-card">
+                    <img src="./FHA vs_ Conventional Loans_ Definitions And Differences.jpeg" alt="">
+                    <!-- <div class="blog-img" style="background-image: url('./7\ Things\ To\ Do\ To\ Build\ An\ Emergency\ Fund\ When\ You\'re\ Broke.jpeg')"></div> -->
+                    <div class="blog-content">
+                        <span class="blog-category">Loan Management</span>
+                        <h3 class="blog-title">7 Strategies to Pay Off Your Loan Faster</h3>
+                        <p class="blog-excerpt">Discover proven methods to accelerate your loan repayment and save money on interest over time.</p>
+                        <div class="blog-meta">
+                            <span>February 22, 2025</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="./Career opportunities in Banking.jpeg" alt="">
+                    <!-- <div class="blog-img" style="background-image: url('/api/placeholder/400/320')"></div> -->
+                    <div class="blog-content">
+                        <span class="blog-category">Banking Tips</span>
+                        <h3 class="blog-title">Understanding Digital Banking Security</h3>
+                        <p class="blog-excerpt">Learn about the security measures that protect your money and data when banking online with NGWINO.</p>
+                        <div class="blog-meta">
+                            <span>February 18, 2025</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="./credit repair __ repairing credit score __ build your credit score__ building credit score__ rebuild credit score__ free credit score __ credit score tips __ good credit score __ raise credit score__ improve your c.jpeg" alt="">
+                    <!-- <div class="blog-img" style="background-image: url('/api/placeholder/400/320')"></div> -->
+                    <div class="blog-content">
+                        <span class="blog-category">Financial Education</span>
+                        <h3 class="blog-title">Building a Strong Credit Score: A Guide for Beginners</h3>
+                        <p class="blog-excerpt">Start your journey to excellent credit with these fundamental tips for establishing and improving your credit score.</p>
+                        <div class="blog-meta">
+                            <span>February 15, 2025</span>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="./Mobile bank app - Nikita Ogurechnikov.jpeg" alt="">
+                    <!-- <div class="blog-img" style="background-image: url('/api/placeholder/400/320')"></div> -->
+                    <div class="blog-content">
+                        <span class="blog-category">Company News</span>
+                        <h3 class="blog-title">NGWINO Launches New Mobile Banking Features</h3>
+                        <p class="blog-excerpt">Explore the latest features added to our mobile banking app designed to make loan management even easier.</p>
+                        <div class="blog-meta">
+                            <span>February 10, 2025</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="./Sеcuring a Loan for Salariеd Profеssionals_ A Stеp-by-Stеp Guidе.jpeg" alt="">
+                    <!-- <div class="blog-img" style="background-image: url('/api/placeholder/400/320')"></div> -->
+                    <div class="blog-content">
+                        <span class="blog-category">Loan Management</span>
+                        <h3 class="blog-title">How to Choose the Right Loan for Your Needs</h3>
+                        <p class="blog-excerpt">Compare different loan types and determine which option best suits your financial situation and goals.</p>
+                        <div class="blog-meta">
+                            <span>February 5, 2025</span>
+                            <span>7 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                   <img src="./The Importance of an Emergency Fund & How to Build One!.jpeg" alt="">
+                    <div class="blog-content">
+                        <span class="blog-category">Banking Tips</span>
+                        <h3 class="blog-title">Emergency Funds: Why You Need One and How to Build It</h3>
+                        <p class="blog-excerpt">Learn the importance of having an emergency fund and practical steps to establish this financial safety net.</p>
+                        <div class="blog-meta">
+                            <span>January 30, 2025</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <div class="pagination-btn">1</div>
+                <div class="pagination-btn">2</div>
+                <div class="pagination-btn">3</div>
+                <div class="pagination-btn">4</div>
+                <div class="pagination-btn">></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-posts">
+        <div class="container">
+            <h3 class="section-title">Featured Posts</h3>
+
+            <div class="featured-grid">
+                <div class="featured-post featured-main" style="background-image: url('/api/placeholder/600/500')">
+                    <div class="featured-content">
+                        <span class="blog-category">Financial Education</span>
+                        <h3 class="blog-title">The Complete Guide to Personal Finance Management in 2025</h3>
+                        <p>A comprehensive overview of modern personal finance strategies, tools, and best practices.</p>
+                        <div class="blog-meta">
+                            <span>February 24, 2025</span>
+                            <span>12 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-post featured-secondary" style="background-image: url('/api/placeholder/400/300')">
+                    <div class="featured-content">
+                        <span class="blog-category">Loan Management</span>
+                        <h3 class="blog-title">Understanding Interest Rates: What Every Borrower Should Know</h3>
+                        <div class="blog-meta">
+                            <span>February 20, 2025</span>
+                            <span>9 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-post featured-secondary" style="background-image: url('/api/placeholder/400/300')">
+                    <div class="featured-content">
+                        <span class="blog-category">Banking Tips</span>
+                        <h3 class="blog-title">Digital Banking Safety: Protecting Your Financial Information Online</h3>
+                        <div class="blog-meta">
+                            <span>February 17, 2025</span>
+                            <span>7 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="subscribe">
+        <div class="container">
+            <h3 class="section-title" style="color: white;">Stay Updated</h3>
+            <p>Subscribe to our newsletter to receive the latest blog posts, financial tips, and NGWINO updates directly in your inbox.</p>
+            
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email address" style="border: 2px solid black;">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About NGWINO</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Blogs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Customer Service</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Blog Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Banking Tips</a></li>
+                        <li><a href="#">Loan Management</a></li>
+                        <li><a href="#">Financial Education</a></li>
+                        <li><a href="#">Company News</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 NGWINO. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
