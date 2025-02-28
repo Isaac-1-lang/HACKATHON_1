@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGWINO - Banking Made Easy</title>
+    <style>
+        :root {
+            --primary-color: #0056D2;
+            --secondary-color: #004BB3;
+            --accent-color: #4CAF50;
+            --light-bg: #f8f9fa;
+            --dark-bg: #333;
+            --text-light: #fff;
+            --text-dark: #333;
+            --text-muted: #6c757d;
+        }
+        .users {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.users .im1,
+.users .im2 {
+    width: 45%; /* Adjust width as needed */
+}
+
+.users img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header { 
+            background: #0c3165; 
+            color: var(--text-light); 
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height:60px;
+        }
+        
+        .header-content {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-linked ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+        .nav-linked ul li a {
+            text-decoration: none;
+            color: white;
+            list-style: none;
+        }
+        .nav-links li  {
+            list-style: none;
+            margin-left: 60px;
+        }
+
+        
+        button {
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--text-light);
+            color: var(--primary-color);
+            padding: 12px 25px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+        }
+        
+        .btn-accent:hover {
+            background: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            background-image: linear-gradient(rgba(48, 34, 105, 0.655), rgba(0, 0, 0, 0.5)), url("./home.png");
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .hero-content {
+            background-color: rgba(11, 30, 243, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .hero h2 { 
+            font-size: 48px; 
+            margin-bottom: 20px; 
+            color: var(--text-light);
+        }
+        
+        .hero p { 
+            font-size: 20px; 
+            margin-bottom: 30px; 
+            line-height: 1.8;
+        }
+        
+        .section {
+            padding: 70px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        .nav-links
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 15px auto;
+        }
+        
+        .info { 
+            background: var(--light-bg); 
+            text-align: center;
+        }
+        
+        .info p { 
+            color: var(--text-dark); 
+            font-size: 18px; 
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .features { 
+            background: var(--primary-color); 
+            color: var(--text-light);
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .features a { 
+            color: #fff; 
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        .features a:hover {
+            color: #f0f0f0;
+        }
+
+        footer { 
+            background: var(--dark-bg); 
+            color: var(--text-light); 
+            padding: 50px 0 20px; 
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            margin-top: 10px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+        
+        .terms { 
+            background: var(--light-bg); 
+            color: var(--text-dark); 
+            padding: 50px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .terms h3 { 
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .terms p { 
+            font-size: 16px; 
+            line-height: 1.8; 
+            margin-bottom: 20px; 
+            max-width: 800px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .terms ul { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            line-height: 1.8; 
+            padding-left: 20px; 
+        }
+        
+        .terms ul li { 
+            margin-bottom: 15px; 
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 70vh;
+                padding: 60px 0;
+            }
+            
+            .hero h2 { 
+                font-size: 36px; 
+            }
+            
+            .hero p { 
+                font-size: 18px; 
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-content {
+                padding: 20px;
+            }
+            
+            .hero h2 { 
+                font-size: 28px; 
+            }
+            
+            .hero p { 
+                font-size: 16px; 
+            }
+            
+            .btn-primary, .btn-secondary, .btn-accent {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .terms h3 {
+                font-size: 24px;
+            }
+            
+            .terms p, .terms ul li {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">NGWINO</h1>
+            <div class="nav-linked">
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#" class="nav-link">Home</a></li>
+                        <li><a href="./about.html" class="nav-link">About Us</a></li>
+                        <li><a href="./blogs.html" class="nav-link">Blogs</a></li>
+                        <li><a href="./contact.html" class="nav-link">Contact</a></li>
+                        <li><a href="./signup.html" class="nav-link buttons">Sign Up</a></li>
+                        <li><a href="./signin.html" class="nav-link buttons">Sign in</a></li>
+                    </ul>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to NGWINO</h2>
+            <p>NGWINO is for everyone who wants to get a loan from the bank.<br>We help people to pay their loans easily and with confidence.</p>
+            <button class="btn-accent">Sign Up for Free</button>
+        </div>
+    </section>
+    <div class="users">
+        <div class="im1"><img src="./Wallpaper for Phone, 300,000+ Free 4K Phone Wallpapers.jpeg" alt=""></div>
+        <div class="im2"><img src="./Retrato de jovem anunciando um novo smartphone, mostrando-o para a câmera contra um fundo azul _ Foto Grátis.jpeg" alt=""></div>
+    </div>
+
+    <section class="section info">
+        <div class="container">
+            <h3 class="section-title">Join 200M Active Users</h3>
+            <p>Find out why we have more than 200 million active accounts worldwide who trust NGWINO for their banking needs.</p>
+            <button class="btn-primary">Learn More</button>
+        </div>
+    </section>
+
+    <section class="section features">
+        <div class="container">
+            <h3 class="section-title">Why Choose NGWINO</h3>
+            
+            <div class="features-container">
+                <div class="feature-box">
+                    <h3>Safer and Protected</h3>
+                    <p>Shop with peace of mind. We don't share your full financial information with sellers. NGWINO Buyer Protection covers your eligible purchases if they don't show up or match their description.</p>
+                    <a href="#">More about protection</a>
+                </div>
+                
+                <div class="feature-box">
+                    <h3>Secure and Reliable</h3>
+                    <p>It's free to open a NGWINO account and buy something using NGWINO unless it involves a currency conversion. Our security systems work around the clock to keep your account safe.</p>
+                    <a href="#">Mostly free, always upfront</a>
+                </div>
+                
+                <div class="feature-box">
+                    <h3>Easy Loan Management</h3>
+                    <p>Manage your loans with ease through our intuitive dashboard. Set up automatic payments, track your progress, and get personalized recommendations to help you pay off your loans faster.</p>
+                    <a href="#">Learn about loan features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About NGWINO</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Blogs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Customer Service</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <section class="terms">
+                <h3>Terms and Conditions</h3>
+                <p>By using the NGWINO platform, you agree to our terms and conditions. These terms include but are not limited to:</p>
+                <ul>
+                    <li>Users must provide accurate and up-to-date information during registration.</li>
+                    <li>NGWINO reserves the right to modify or terminate services without prior notice.</li>
+                    <li>Users are responsible for maintaining the confidentiality of their account details.</li>
+                    <li>Any misuse or fraudulent activity may result in account suspension or termination.</li>
+                    <li>NGWINO is not liable for any third-party transactions or disputes.</li>
+                </ul>
+                <p>By continuing to use our services, you acknowledge that you have read and agreed to these terms. If you do not agree with any part of these terms, please discontinue the use of our services immediately.</p>
+                <p style="text-align: center; margin-top: 30px;">
+                    <button class="btn-primary" onclick="alert('You accepted the terms and conditions.')">Accept Terms</button>
+                </p>
+            </section>
+            
+            <div class="copyright">
+                &copy; 2025 NGWINO. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
